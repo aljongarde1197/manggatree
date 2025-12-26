@@ -3,13 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sans: var(--font-nunito);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-nunito);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +19,36 @@
   }
 }
 
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 1s ease-out forwards;
+}
+
+.animate-fade-up-delay {
+  animation: fadeUp 1s ease-out forwards;
+  animation-delay: 0.3s; /* delayed slightly */
+}
+
+.animate-fade-up-delay-2 {
+  animation: fadeUp 1s ease-out forwards;
+  animation-delay: 0.6s; /* second delay for buttons */
+}
+
+
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
