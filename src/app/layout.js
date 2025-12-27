@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={nunito.variable}>
       <body className="flex flex-col min-h-screen font-sans">
         <Navbar />
-        <div className="grow">{children}</div>
+        <div className="grow bg-[#141414]">{children}</div>
         <Footer />
       </body>
     </html>

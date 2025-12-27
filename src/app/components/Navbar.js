@@ -3,15 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FaInstagram, FaFacebookF, FaXTwitter } from "react-icons/fa6";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-md">
-      <nav className="flex items-center justify-between p-4 md:p-4 max-w-7xl mx-auto text-white">
+      <nav className="flex items-center justify-between p-4 max-w-7xl mx-auto text-white">
 
         {/* Left: Logo + Brand */}
         <div className="flex items-center gap-2">
@@ -21,44 +21,81 @@ export default function Navbar() {
             width={40}
             height={40}
           />
-          <span className="font-thin text-lg">MANGGA TREE</span>
+          <span className="font-thin text-lg tracking-wide">
+            MANGGA TREE
+          </span>
         </div>
 
         {/* Middle Links (Desktop) */}
         <ul className="hidden md:flex gap-12 font-medium">
           <li>
-            <Link href="/" className="hover:text-gray-300">
+            <Link href="/" className="hover:text-[#7ea049] transition">
               Home
             </Link>
           </li>
           <li>
-            <Link href="/book" className="hover:text-gray-300">
+            <Link href="/book" className="hover:text-[#7ea049] transition">
               Book a Room
             </Link>
           </li>
           <li>
-            <Link href="/about" className="hover:text-gray-300">
+            <Link href="/about" className="hover:text-[#7ea049] transition">
               About Us
             </Link>
           </li>
         </ul>
 
-        {/* Right: Contact (Desktop) */}
-        <div className="hidden md:block">
+        {/* Right: Social Icons + Contact (Desktop) */}
+        <div className="hidden md:flex items-center gap-6">
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-4">
+            {/* <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="p-2 rounded-full hover:bg-white/10 hover:text-[#8AAF4F] transition"
+            >
+              <FaInstagram size={18} />
+            </a> */}
+
+            <a
+              href="https://www.facebook.com/profile.php?id=100063920565714"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="p-2 rounded-full hover:bg-white/10 hover:text-[#8AAF4F] transition"
+            >
+              <FaFacebookF size={18} />
+            </a>
+
+            {/* <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter / X"
+              className="p-2 rounded-full hover:bg-white/10 hover:text-[#8AAF4F] transition"
+            >
+              <FaXTwitter size={18} />
+            </a> */}
+          </div>
+
+          {/* Contact Button */}
           <Link
             href="/contact"
-            className="px-4 py-2 rounded hover:bg-[#7ea049] transition bg-[#8AAF4F]"
+            className="px-4 py-2 rounded bg-[#8AAF4F] hover:bg-[#7ea049] transition"
           >
             Contact Us
           </Link>
         </div>
 
-        {/* Hamburger Menu Button (Mobile) */}
+        {/* Hamburger Button (Mobile) */}
         <button
           className="md:hidden flex items-center"
           onClick={toggleMenu}
+          aria-label="Toggle menu"
         >
-          <span className="sr-only">Toggle Menu</span>
           <div className="space-y-1">
             <span
               className={`block w-6 h-0.5 bg-white transition-transform duration-300 ${
@@ -80,19 +117,22 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         <div
-          className={`fixed top-0 left-0 w-full h-screen bg-black/90 backdrop-blur-md flex flex-col items-center justify-center space-y-8 text-white text-xl transition-transform duration-300 ${
+          className={`fixed top-0 left-0 w-full h-screen bg-black/90 backdrop-blur-md
+          flex flex-col items-center justify-center space-y-8 text-white text-xl
+          transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <Link href="/" onClick={() => setIsOpen(false)} className="hover:text-gray-300">
+          <Link href="/" onClick={() => setIsOpen(false)}>
             Home
           </Link>
-          <Link href="/book" onClick={() => setIsOpen(false)} className="hover:text-gray-300">
+          <Link href="/book" onClick={() => setIsOpen(false)}>
             Book a Room
           </Link>
-          <Link href="/about" onClick={() => setIsOpen(false)} className="hover:text-gray-300">
+          <Link href="/about" onClick={() => setIsOpen(false)}>
             About Us
           </Link>
+
           <Link
             href="/contact"
             onClick={() => setIsOpen(false)}
@@ -100,6 +140,19 @@ export default function Navbar() {
           >
             Contact Us
           </Link>
+
+          {/* Social Icons (Mobile) */}
+          <div className="flex gap-6 pt-6">
+            <a href="https://instagram.com" aria-label="Instagram">
+              <FaInstagram size={22} />
+            </a>
+            <a href="https://facebook.com" aria-label="Facebook">
+              <FaFacebookF size={22} />
+            </a>
+            <a href="https://twitter.com" aria-label="Twitter / X">
+              <FaXTwitter size={22} />
+            </a>
+          </div>
         </div>
 
       </nav>

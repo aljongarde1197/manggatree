@@ -43,7 +43,7 @@
   animation: fadeUp 1s ease-out forwards;
   animation-delay: 0.6s; /* second delay for buttons */
 }
-
+ 
 
 
 body {
@@ -52,3 +52,6 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
