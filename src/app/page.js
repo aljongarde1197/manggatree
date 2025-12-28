@@ -15,6 +15,14 @@ export default function Home() {
 
   const [currentImage, setCurrentImage] = useState(0);
 
+  const band_images = [
+    "/band_banner_1.jpg",
+    "/band_banner_2.jpg",
+    "/band_5.jpg"
+  ];
+
+  const [current, setCurrent] = useState(0);
+
   // Cycle images every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,6 +31,14 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, []);
+
+  // Optional: Auto-slide every 5s
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCurrent((prev) => (prev + 1) % images.length);
+      }, 5000);
+      return () => clearInterval(interval);
+    }, []);
 
   // Client-side scroll animations
   useEffect(() => {
@@ -132,11 +148,116 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="bg-[#0f0f0f] w-full">
+          <div className="max-w-3xl md:max-w-5xl mx-auto text-center space-y-8 py-24">
+            <h3 className="text-2xl md:text-5xl font-thin text-[#7ea049]">
+              LIVE BANDS ON SPECIAL OCCASION
+            </h3>
+            <p className="text-lg md:text-xl text-white">
+              We proudly support and showcase local bands, giving homegrown talent a stage to be heard.
+            </p>
+
+            {/* Row of Images */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-6 p-4 md:p-0">
+             {/* Left – Big image carousel */}
+            <div className="md:h-full relative rounded-lg shadow-lg overflow-hidden bg-black min-h-[500px]">
+              {/* Images */}
+              {band_images.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img}
+                  alt={`Band ${idx + 1}`}
+                  className={`w-full h-full object-contain absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                    idx === current ? "opacity-100 z-10" : "opacity-0 z-0"
+                  }`}
+                />
+              ))}
+
+              {/* Dots */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+                {band_images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrent(idx)}
+                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                      idx === current ? "bg-[#7ea049]" : "bg-white"
+                    }`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+
+
+              {/* Right – 3 stacked images with hover overlay */}
+              <div className="grid grid-rows-3 gap-4 h-full">
+                {[
+                  { src: "/band_2.jpg", name: "1945" },
+                  { src: "/band_3.jpg", name: "The KRYPTONOTES" },
+                  { src: "/band_1.jpg", name: "Thirst Day" },
+                ].map((band, index) => (
+                  <div key={index} className="relative rounded-lg overflow-hidden h-[150px] md:h-[200px] shadow-lg group">
+                    <img
+                      src={band.src}
+                      alt={band.name}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="text-white text-lg md:text-xl font-semibold text-center px-2">
+                        {band.name}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+
+
+          </div>
+      </div>
+
+    
+
+      <div className="max-w-3xl md:max-w-7xl mx-auto text-center space-y-8 py-24">
+        <h3 className="text-2xl md:text-5xl font-thin text-[#7ea049]">
+          PROMOS AND RAFFLES
+        </h3>
+        <p className="text-lg md:text-xl text-white">
+          We love spreading joy by surprising our customers with promos and raffles whenever there’s an occasion worth celebrating.
+        </p>
+
+        {/* Row of Images */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-8 mt-2 md:mt-8 p-4 md:p-0">
+          <img
+            src="/raffle_1.jpg"
+            alt="Celebration"
+            className="w-full h-96 rounded-lg shadow-lg"
+          />
+          <img
+            src="/raffle_2.jpg"
+            alt="Guests enjoying drinks"
+            className="w-full h-96 rounded-lg shadow-lg"
+          />
+          <img
+            src="/raffle_3.jpg"
+            alt="Group of friends"
+            className="w-full h-96 rounded-lg shadow-lg"
+          />
+          <img
+            src="/raffle_4.jpg"
+            alt="Celebration"
+            className="w-full h-96 rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
 
 
       {/* BEER GARDEN */}
       <section
-        id="beer-garden"
+        id="beer-garden" 
         ref={(el) => (sectionsRef.current[0] = el)}
         className="min-h-screen flex items-center justify-center bg-[#0f0f0f] text-white px-6 opacity-0 translate-y-12 transition-all duration-700"
       >
@@ -186,10 +307,9 @@ export default function Home() {
     </div>
   </div>
 
-  {/* Lightbox Overlay */}
   {lightboxImage && (
     <div
-      className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+      className="fixed inset-0 w-screen h-screen bg-black/90 flex items-center justify-center z-[9999]"
       onClick={() => setLightboxImage(null)}
     >
       <img
@@ -197,14 +317,17 @@ export default function Home() {
         alt="Full view"
         className="max-w-full max-h-full object-contain rounded-lg shadow-xl"
       />
+
       <button
-        className="absolute top-6 right-6 text-white text-3xl font-bold"
+        className="absolute top-6 right-6 text-white text-3xl font-bold z-[10000]"
         onClick={() => setLightboxImage(null)}
       >
         ×
       </button>
     </div>
   )}
+
+
 </section>
 
 
@@ -232,7 +355,7 @@ export default function Home() {
         className="min-h-screen flex items-center justify-center bg-[#141414] text-white px-6 opacity-0 translate-y-12 transition-all duration-700"
       >
         <div className="max-w-5xl text-center space-y-8">
-          <h2 className="text-4xl font-bold text-white">
+          <h2 className="text-4xl font-bold text-[#8AAF4F]">
             YOUR FAVORITE DRINKS WITH YOUR FAVORITE PEOPLE
           </h2>
 
