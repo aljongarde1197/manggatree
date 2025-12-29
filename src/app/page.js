@@ -23,6 +23,16 @@ export default function Home() {
 
   const [current, setCurrent] = useState(0);
 
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      videoRef.current?.play();
+    }, 2000); // 1 second delay
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // Cycle images every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -109,10 +119,11 @@ export default function Home() {
       </div>
     </section>
 
-      <div className="max-w-3xl md:max-w-7xl mx-auto text-center space-y-8 py-24">
+      <div className="max-w-3xl md:max-w-7xl mx-auto text-center space-y-8 py-24 transition-all duration-700 popup-animation-delayed" ref={(el) => (sectionsRef.current[0] = el)}>
         <h3 className="text-2xl md:text-5xl font-thin text-white">
           Celebrating <b className="text-[#7ea049]">8 Amazing Years!</b>
         </h3>
+
         <p className="text-lg md:text-xl text-white">
           For 8 incredible years, we’ve been serving unforgettable nights, delicious drinks, and happy memories. Join us and experience the magic that keeps our guests coming back!
         </p>
@@ -148,7 +159,29 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-[#0f0f0f] w-full">
+
+      {/* BEER GARDEN */}
+      <section
+        id="beer-garden" 
+        ref={(el) => (sectionsRef.current[1] = el)}
+        className="min-h-screen flex flex-col items-center justify-center bg-[#0f0f0f] text-white px-6 py-20 opacity-0 translate-y-12 transition-all duration-700"
+      >
+
+        <h3 className="text-2xl md:text-5xl font-thin text-white mb-4">
+              HAVE A FUN AND CHILL MOMENT WITH US!
+            </h3>
+
+        <video
+        ref={videoRef}
+        className="w-full max-w-4xl"
+        muted
+        playsInline
+        preload="metadata"
+      >
+        <source src="/beers_video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
           <div className="max-w-3xl md:max-w-5xl mx-auto text-center space-y-8 py-24">
             <h3 className="text-2xl md:text-5xl font-thin text-[#7ea049]">
               LIVE BANDS ON SPECIAL OCCASION
@@ -217,66 +250,57 @@ export default function Home() {
 
 
           </div>
-      </div>
 
-    
-
-      <div className="max-w-3xl md:max-w-7xl mx-auto text-center space-y-8 py-24">
-        <h3 className="text-2xl md:text-5xl font-thin text-[#7ea049]">
-          PROMOS AND RAFFLES
-        </h3>
-        <p className="text-lg md:text-xl text-white">
-          We love spreading joy by surprising our customers with promos and raffles whenever there’s an occasion worth celebrating.
-        </p>
-
-        {/* Row of Images */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-8 mt-2 md:mt-8 p-4 md:p-0">
-          <img
-            src="/raffle_1.jpg"
-            alt="Celebration"
-            className="w-full h-96 rounded-lg shadow-lg"
-          />
-          <img
-            src="/raffle_2.jpg"
-            alt="Guests enjoying drinks"
-            className="w-full h-96 rounded-lg shadow-lg"
-          />
-          <img
-            src="/raffle_3.jpg"
-            alt="Group of friends"
-            className="w-full h-96 rounded-lg shadow-lg"
-          />
-          <img
-            src="/raffle_4.jpg"
-            alt="Celebration"
-            className="w-full h-96 rounded-lg shadow-lg"
-          />
-        </div>
-      </div>
-
-
-      {/* BEER GARDEN */}
-      <section
-        id="beer-garden" 
-        ref={(el) => (sectionsRef.current[0] = el)}
-        className="min-h-screen flex items-center justify-center bg-[#0f0f0f] text-white px-6 opacity-0 translate-y-12 transition-all duration-700"
-      >
-        <div className="max-w-3xl text-center space-y-4">
-          <h2 className="text-4xl font-bold text-[#8AAF4F]">Beer Garden</h2>
-          <p className="text-lg text-gray-300">
-            Open-air vibes, craft beers, live music, and unforgettable nights.
+        <div className="w-6xl text-center space-y-4">
+          <h3 className="text-2xl md:text-5xl font-thin text-[#7ea049]">
+            PROMOS AND RAFFLES
+          </h3>
+          <p className="text-lg md:text-xl text-white">
+            We love spreading joy by surprising our customers with promos and raffles whenever there’s an occasion worth celebrating.
           </p>
+
+          {/* Row of Images */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-8 mt-2 md:mt-8 p-4 md:p-0">
+            <img
+              src="/raffle_1.jpg"
+              alt="Celebration"
+              className="w-full h-96 rounded-lg shadow-lg"
+            />
+            <img
+              src="/raffle_2.jpg"
+              alt="Guests enjoying drinks"
+              className="w-full h-96 rounded-lg shadow-lg"
+            />
+            <img
+              src="/raffle_3.jpg"
+              alt="Group of friends"
+              className="w-full h-96 rounded-lg shadow-lg"
+            />
+            <img
+              src="/raffle_4.jpg"
+              alt="Celebration"
+              className="w-full h-96 rounded-lg shadow-lg"
+            />
+          </div>
         </div>
       </section>
+    
 
    {/* ROOM RENTAL */}
 <section
   id="room-rental"
-  ref={(el) => (sectionsRef.current[1] = el)}
+  ref={(el) => (sectionsRef.current[2] = el)}
   className="relative min-h-screen flex flex-col items-center justify-center bg-[#141414] text-white px-6 opacity-0 translate-y-12 transition-all duration-700"
 >
   <div className="max-w-5xl text-center space-y-8">
-    <h2 className="text-4xl font-bold text-white">“Stay in style, unwind in comfort — our aesthetic rooms offer a cozy retreat with interiors designed to elevate every moment.”</h2>
+    <h2 className="text-4xl font-bold text-white">“Whether you’re tired from drinking or just need a place to stay, a cozy and stylish room awaits you.”</h2>
+
+     <a
+          href="#beer-garden"
+          className="inline-block px-6 py-3 bg-[#8AAF4F] text-white rounded-lg font-semibold hover:bg-[#7ea049] transition"
+        >
+          Book Now!
+        </a>
     {/* <p className="text-lg text-gray-300">
       To book a room, kindly contact us
     </p> */}
@@ -337,7 +361,7 @@ export default function Home() {
       {/* MINI SHOP */}
       <section
         id="mini-shop"
-        ref={(el) => (sectionsRef.current[2] = el)}
+        ref={(el) => (sectionsRef.current[3] = el)}
         className="min-h-screen flex items-center justify-center bg-[#0f0f0f] text-white px-6 opacity-0 translate-y-12 transition-all duration-700"
       >
         <div className="max-w-5xl text-center space-y-4">
@@ -351,7 +375,7 @@ export default function Home() {
       {/* PARTY CUSTOMER */}
       <section
         id="customer-feedback"
-        ref={(el) => (sectionsRef.current[3] = el)}
+        ref={(el) => (sectionsRef.current[4] = el)}
         className="min-h-screen flex items-center justify-center bg-[#141414] text-white px-6 opacity-0 translate-y-12 transition-all duration-700"
       >
         <div className="max-w-5xl text-center space-y-8">
@@ -400,7 +424,39 @@ export default function Home() {
           </div>
           {/* ----------------- End Inserted Content ----------------- */}
 
-          <h2 className="text-4xl font-bold text-white">"SEE YOU AT MANGGA TREE!"</h2>
+          
+        </div>
+      </section>
+
+
+       {/* LOCATION */}
+      <section
+        id="location"
+        ref={(el) => (sectionsRef.current[5] = el)}
+        className="min-h-screen flex items-center justify-center bg-[#0f0f0f] text-white px-6 opacity-0 translate-y-12 transition-all duration-700"
+      >
+        <div className="max-w-5xl w-full text-center space-y-4">
+          <h2 className="text-4xl font-bold text-[#8AAF4F]">
+            WE ARE LOCATED HERE
+          </h2>
+
+          <p className="text-lg text-gray-300">
+            Prk. Mangga Quirino St, Panabo, 8105 Davao del Norte
+          </p>
+
+          <div className="w-full h-80 md:h-96 rounded-lg overflow-hidden shadow-lg">
+            <iframe
+              title="Google Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.744204488677!2d125.6842251!3d7.3011164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f9453dcf3e870d%3A0x621358e034143fab!2sMangga%20Tree%20Mini%20Mart!5e0!3m2!1sen!2sph!4v0000000000"
+              className="w-full h-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+
+          </div>
+
+
+          {/* <h2 className="text-4xl font-bold text-white">"SEE YOU AT MANGGA TREE!"</h2> */}
         </div>
       </section>
 
@@ -438,6 +494,13 @@ export default function Home() {
             className="px-4 py-2 rounded-lg hover:bg-[#8AAF4F] text-sm font-semibold"
           >
             CUSTOMER FEEDBACKS
+          </a>
+
+          <a
+            href="#location"
+            className="px-4 py-2 rounded-lg hover:bg-[#8AAF4F] text-sm font-semibold"
+          >
+            LOCATION
           </a>
         </div>
 
